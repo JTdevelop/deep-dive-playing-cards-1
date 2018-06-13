@@ -16,9 +16,16 @@ import java.util.regex.Pattern;
  */
 public class ConsoleGame {
 
+  private static final String RESOURCE_BUNDLE = "resources/console_game";
+
   private static final int INITIAL_POT = 100;
   private static final int MAX_BET = 10;
   private static final Pattern NON_WHITE_SPACE = Pattern.compile("\\S+");
+  public static final String CURRENT_POT = "%nYou have $%d. ";
+  public static final String DEALER_TOP_CARD = "%nDealer's top card: %s.%n";
+  public static final String WIMP_OUT = "You leave the table with $%d.%n";
+  public static final String RISK = "What is your bet? [0-%d] ";
+  public static final String INSURANCE = "Take even money against dealer's possible blackjack? [y/n] ";
 
   /**
    *
@@ -30,7 +37,7 @@ public class ConsoleGame {
       Deck deck = new Deck();
       int pot = INITIAL_POT;
       for (boolean play = true; play; play &= pot > 0) {
-        System.out.printf("%nYou have $%d. ", pot);
+        System.out.printf(CURRENT_POT, pot);
         int bet = getBet(scanner, pot);
         if (bet > 0) {
           deck.gather();
@@ -38,7 +45,7 @@ public class ConsoleGame {
           BlackjackHand dealer = new BlackjackDealerHand(deck);
           BlackjackHand player = new InteractiveBlackjackHand(deck, scanner);
           Card topCard = dealer.getHand()[1];
-          System.out.printf("%nDealer's top card: %s.%n", topCard);
+          System.out.printf(DEALER_TOP_CARD, topCard);
           if (!player.isBlackjack()
               || (topCard.getRank() != Rank.ACE)
               || !buyInsurance(scanner, player)) {
@@ -48,7 +55,7 @@ public class ConsoleGame {
           play = false;
         }
       }
-      System.out.printf("You leave the table with $%d.%n", pot);
+      System.out.printf(WIMP_OUT, pot);
     } catch (InsufficientCardsException e) {
       /*
       In this program, this exception should never occur. If it does, wrap it in
@@ -62,7 +69,7 @@ public class ConsoleGame {
     int bet = -1;
     int maxBet = Math.min(10, MAX_BET);
     do {
-      System.out.printf("What is your bet? [0-%d] ", maxBet);
+      System.out.printf(RISK, maxBet);
       while (!scanner.hasNext()) {}
       if (scanner.hasNextInt()) {
         int input = scanner.nextInt();
@@ -79,7 +86,7 @@ public class ConsoleGame {
     Boolean insure = null;
     System.out.println(player);
     while (insure == null) {
-      System.out.print("Take even money against dealer's possible blackjack? [y/n] ");
+      System.out.print(INSURANCE);
       while (!scanner.hasNext(NON_WHITE_SPACE)) {}
       char input = scanner.next(NON_WHITE_SPACE).toLowerCase().charAt(0);
       if (input == 'y') {
