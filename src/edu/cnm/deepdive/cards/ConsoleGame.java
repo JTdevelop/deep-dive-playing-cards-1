@@ -17,9 +17,7 @@ import java.util.regex.Pattern;
  */
 public class ConsoleGame {
 
-  public static final String PUSH_PATTERN_KEY = "%nPush!%n";
   private static final String RESOURCE_BUNDLE = "resources/console_game";
-
   private static final int INITIAL_POT = 100;
   private static final int MAX_BET = 10;
   private static final Pattern NON_WHITE_SPACE = Pattern.compile("\\S+");
@@ -34,6 +32,7 @@ public class ConsoleGame {
   private static final String DEALER_HEADER_PATTERN_KEY = "dealer_header_pattern";
   private static final String WIN_PATTERN_KEY = "win_pattern";
   private static final String LOSS_PATTERN_KEY = "loss_pattern";
+  private static final String PUSH_PATTERN_KEY = "%nPush!%n";
 
   private static ResourceBundle bundle = ResourceBundle.getBundle(RESOURCE_BUNDLE);
 

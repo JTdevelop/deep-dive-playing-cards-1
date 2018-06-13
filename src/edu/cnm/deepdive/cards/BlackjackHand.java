@@ -33,7 +33,6 @@ public abstract class BlackjackHand implements Comparable<BlackjackHand> {
   };
 
   private static final String RESOURCE_BUNDLE = "resources/blackjack_hand";
-
   public static final String BUSTED_PATTERN_KEY = "busted_pattern";
   public static final String BLACKJACK_PATTERN_KEY = "blackjack_pattern";
   public static final String POINTS_PATTERN_KEY = "points_pattern";
